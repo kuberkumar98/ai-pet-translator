@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Pet Mood Translator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        header {
+            background-color: #4a89dc;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .hero {
+            position: relative;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            max-height: 500px;
+        }
+        
+        .hero img {
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .hero-text {
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+        
+        section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        
+        .how-it-works {
+            background-color: #f9f9f9;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        
+        .step {
+            flex-basis: 300px;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #4a89dc;
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .features {
+            background-color: white;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .benefits {
+            background-color: #f0f7ff;
+        }
+        
+        .benefit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .testimonials {
+            background-color: white;
+            text-align: center;
+        }
+        
+        .testimonial-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .testimonial {
+            flex-basis: 300px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial p {
+            font-style: italic;
+        }
+        
+        .author {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .pricing {
+            background-color: #f9f9f9;
+        }
+        
+        .pricing-table {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .price-card {
+            flex-basis: 300px;
+            padding: 30px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            background-color: white;
+            transition: transform 0.3s;
+        }
+        
+        .price-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .popular {
+            border-top: 4px solid #4CAF50;
+            position: relative;
+        }
+        
+        .popular::after {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            transform: rotate(45deg);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #4a89dc;
+        }
+        
+        .period {
+            font-size: 1rem;
+            color: #888;
+            font-weight: normal;
+        }
+        
+        .price-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .price-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .price-card li:before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+        
+        .platforms {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .platforms img {
+            height: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Pet Mood Translator</h1>
+        <p class="subtitle">Understand what your pets are really saying</p>
+    </header>
+    
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE0NjB8MHwxfHNlYXJjaHwxfHxwZXQlMjBzbWFydHBob25lJTIwYXBwfGVufDB8MHx8fDE3NDY5NTIzMjR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Pet with smartphone">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h2>Understand Your Pet Like Never Before</h2>
+                <p>Our AI-powered Pet Mood Translator bridges the communication gap between you and your furry friends.</p>
+                <a href="#" class="cta-button">DOWNLOAD NOW - Free Trial Available</a>
+            </div>
+        </div>
+    </div>
+    
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Record Your Pet</h3>
+                <p>Capture your pet's sounds, barks, meows, or body language using your smartphone camera.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>AI Analysis</h3>
+                <p>Our advanced AI technology analyzes vocal patterns and body language.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Instant Translation</h3>
+                <p>Receive real-time interpretations of your pet's emotions and needs.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <h2>Key Features</h2>
+        <div class="feature-list">
+            <div class="feature">
+                <h3>Multi-Species Support</h3>
+                <p>Works with dogs, cats, birds, and more.</p>
+            </div>
+            <div class="feature">
+                <h3>Emotion Detection</h3>
+                <p>Identifies happiness, anxiety, hunger, excitement, and other moods.</p>
+            </div>
+            <div class="feature">
+                <h3>Health Alerts</h3>
+                <p>Potentially detects signs of discomfort or illness.</p>
+            </div>
+            <div class="feature">
+                <h3>Activity Tracking</h3>
+                <p>Monitors behavior patterns over time.</p>
+            </div>
+            <div class="feature">
+                <h3>Voice Recognition</h3>
+                <p>Customized to your specific pet's unique communication style.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="benefits">
+        <h2>Benefits</h2>
+        <div class="benefit-list">
+            <div class="benefit">
+                <h3>Stronger Bond</h3>
+                <p>Deepen your connection with your pet.</p>
+            </div>
+            <div class="benefit">
+                <h3>Better Care</h3>
+                <p>Address your pet's needs more effectively.</p>
+            </div>
+            <div class="benefit">
+                <h3>Peace of Mind</h3>
+                <p>Know when your pet needs attention even when you're away.</p>
+            </div>
+            <div class="benefit">
+                <h3>Fun Interactions</h3>
+                <p>Share your pet's "thoughts" with friends and family.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <h2>What Pet Owners Are Saying</h2>
+        <div class="testimonial-list">
+            <div class="testimonial">
+                <p>"I never knew my cat had so much to say! Now I can respond to her needs before she gets frustrated."</p>
+                <p class="author">- Sarah K.</p>
+            </div>
+            <div class="testimonial">
+                <p>"My dog's anxiety during thunderstorms was something I couldn't understand before. The translator helps me comfort him exactly when and how he needs it."</p>
+                <p class="author">- Michael T.</p>
+            </div>
+            <div class="testimonial">
+                <p>"As a vet, I recommend this to all my clients. It's revolutionized how we understand pet behavior."</p>
+                <p class="author">- Dr. Lisa Wang, DVM</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing">
+        <h2>Choose Your Plan</h2>
+        <div class="pricing-table">
+            <div class="price-card">
+                <h3>Basic</h3>
+                <p class="price">$4.99<span class="period">/month</span></p>
+                <ul>
+                    <li>Translation for one pet</li>
+                    <li>Basic emotion detection</li>
+                    <li>Standard customer support</li>
+                </ul>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+            <div class="price-card popular">
+                <h3>Premium</h3>
+                <p class="price">$9.99<span class="period">/month</span></p>
+                <ul>
+                    <li>Multiple pets</li>
+                    <li>Advanced health insights</li>
+                    <li>Unlimited translations</li>
+                    <li>Priority customer support</li>
+                </ul>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+            <div class="price-card">
+                <h3>Family Pack</h3>
+                <p class="price">$14.99<span class="period">/month</span></p>
+                <ul>
+                    <li>Up to 5 pets</li>
+                    <li>All premium features</li>
+                    <li>Priority customer support</li>
+                    <li>Exclusive pet behavior insights</li>
+                </ul>
+                <a href="#" class="cta-button">Get Started</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="call-to-action">
+        <h2>Ready to Hear What Your Pet Is Saying?</h2>
+        <p>Download the AI Pet Mood Translator today and start understanding your furry friend like never before.</p>
+        <a href="#" class="cta-button">DOWNLOAD NOW - Free Trial Available</a>
+        <p style="margin-top: 20px; font-size: 0.9rem;">Available on iOS and Android devices</p>
+    </section>
+    
+    <footer>
+        <p>© 2025 AI Pet Mood Translator. All rights reserved.</p>
+        <p>Contact: support@aipetmoodtranslator.com</p>
+    </footer>
+</body>
+</html>
